@@ -18,14 +18,18 @@ public class Player {
     @Column(name = "login")
     private String login;
 
+    @Column(name = "player_name", unique = true, nullable = false)
+    private String playerName;
+
     @Column(name = "first_name")
     private String firstName;
 
     @Column(name = "last_name")
     private String lastName;
 
-    public Player(String login, String firstName, String lastName) {
+    public Player(String login, String playerName, String firstName, String lastName) {
         this.login = login;
+        this.playerName = playerName;
         this.firstName = firstName;
         this.lastName = lastName;
     }
