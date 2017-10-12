@@ -10,6 +10,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@RequestMapping("/player")
 public class PlayerController {
 
     private PlayerService playerService;
