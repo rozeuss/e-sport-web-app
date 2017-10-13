@@ -1,6 +1,6 @@
 package pl.my.e.sport.web.app.esportwebapp.controllers;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.my.e.sport.web.app.esportwebapp.domain.Player;
@@ -8,7 +8,8 @@ import pl.my.e.sport.web.app.esportwebapp.services.PlayerService;
 
 import java.util.List;
 
-@Slf4j
+
+@Log4j
 @RestController
 @RequestMapping("/player")
 public class PlayerController {
@@ -22,6 +23,7 @@ public class PlayerController {
 
     @RequestMapping(value = "/sayHello", method = RequestMethod.GET)
     public String sayHello() {
+        PlayerController.log.error("strzala");
         return "hello world";
     }
 

@@ -1,6 +1,5 @@
 package pl.my.e.sport.web.app.esportwebapp.domain;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

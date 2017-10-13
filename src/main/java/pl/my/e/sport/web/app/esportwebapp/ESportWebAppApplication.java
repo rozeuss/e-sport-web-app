@@ -1,10 +1,10 @@
 package pl.my.e.sport.web.app.esportwebapp;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@Slf4j
+@Log4j
 @SpringBootApplication
 public class ESportWebAppApplication {
 

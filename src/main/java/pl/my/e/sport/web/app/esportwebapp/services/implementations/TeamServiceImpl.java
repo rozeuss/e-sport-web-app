@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class TeamServiceImpl implements TeamService {
 
-    TeamRepository teamRepository;
+    private TeamRepository teamRepository;
 
     @Autowired
     public TeamServiceImpl(TeamRepository teamRepository) {

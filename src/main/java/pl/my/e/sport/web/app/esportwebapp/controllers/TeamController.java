@@ -1,6 +1,6 @@
 package pl.my.e.sport.web.app.esportwebapp.controllers;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.my.e.sport.web.app.esportwebapp.domain.Team;
 import pl.my.e.sport.web.app.esportwebapp.services.TeamService;
 
-@Slf4j
+@Log4j
 @RestController
 @RequestMapping("/team")
 public class TeamController {
