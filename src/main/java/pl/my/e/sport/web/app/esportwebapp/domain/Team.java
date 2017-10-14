@@ -2,7 +2,6 @@ package pl.my.e.sport.web.app.esportwebapp.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 

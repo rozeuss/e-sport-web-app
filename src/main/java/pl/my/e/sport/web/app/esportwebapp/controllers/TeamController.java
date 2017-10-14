@@ -25,14 +25,5 @@ public class TeamController {
     public Team addNew(@RequestParam("teamName") String name) {
         return teamService.save(new Team(name));
     }
-//
-//    @GetMapping("/findAll")
-//    public List<Team> findAll() {
-//        return teamService.listAll();
-//    }
-//
-//    @GetMapping("/findById")
-//    public Team findById(@RequestParam("id") long id) {
-//        return teamService.findById(id);
-//    }
+
 }
