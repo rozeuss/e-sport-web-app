@@ -1,11 +1,10 @@
 package pl.my.e.sport.web.app.esportwebapp.controllers;
 
 import lombok.extern.log4j.Log4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.my.e.sport.web.app.esportwebapp.domain.Player;
-import pl.my.e.sport.web.app.esportwebapp.domain.dto.PlayerDto;
-import pl.my.e.sport.web.app.esportwebapp.domain.dto.PlayerMapper;
 import pl.my.e.sport.web.app.esportwebapp.services.PlayerService;
 
 import java.util.List;
@@ -25,8 +24,8 @@ public class PlayerController {
 
     @RequestMapping(value = "/sayHello", method = RequestMethod.GET)
     public String sayHello() {
-        //log.error("strzala");
-        log.info("objekt");
+        StringUtils.isEmpty("dwa");
+        log.error("strzala");
         return "hello world";
     }
 
@@ -43,8 +42,8 @@ public class PlayerController {
     }
 
     @GetMapping("/findById")
-    public PlayerDto findById(@RequestParam("id") long id) {
-        return PlayerMapper.INSTANCE.toDto(playerService.findById(id));
+    public Player findById(@RequestParam("id") long id) {
+        return playerService.findById(id);
     }
 
     @GetMapping("/findByLastName")
