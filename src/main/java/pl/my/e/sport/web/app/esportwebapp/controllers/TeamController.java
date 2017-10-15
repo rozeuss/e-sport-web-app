@@ -2,10 +2,7 @@ package pl.my.e.sport.web.app.esportwebapp.controllers;
 
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.my.e.sport.web.app.esportwebapp.domain.Team;
 import pl.my.e.sport.web.app.esportwebapp.services.TeamService;
 
@@ -22,8 +19,13 @@ public class TeamController {
     }
 
     @PostMapping("/addNew")
-    public Team addNew(@RequestParam("teamName") String name) {
-        return teamService.save(new Team(name));
+    public Team addNew(@RequestParam("teamName") String name, String email) {
+        return teamService.save(new Team(name, email, null, null, null));
+    }
+
+    @GetMapping("/findByEmail")
+    public Team findByEmail(String email) {
+        return teamService.findByEmail(email);
     }
 
 }

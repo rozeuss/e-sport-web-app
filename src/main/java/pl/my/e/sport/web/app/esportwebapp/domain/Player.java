@@ -14,23 +14,18 @@ public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-    @Column(name = "login")
     private String login;
-
-    @Column(name = "player_name", unique = true, nullable = false)
     private String playerName;
-
-    @Column(name = "first_name")
     private String firstName;
-
-    @Column(name = "last_name")
     private String lastName;
+    @ManyToOne
+    private Team team;
 
-    public Player(String login, String playerName, String firstName, String lastName) {
+    public Player(String login, String playerName, String firstName, String lastName, Team team) {
         this.login = login;
         this.playerName = playerName;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.team = team;
     }
 }

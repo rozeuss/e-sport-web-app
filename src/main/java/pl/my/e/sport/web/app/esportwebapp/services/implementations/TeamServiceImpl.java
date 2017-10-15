@@ -35,4 +35,9 @@ public class TeamServiceImpl implements TeamService {
     public Team save(Team team) {
         return teamRepository.save(team);
     }
+
+    @Override
+    public Team findByEmail(String email) {
+        return teamRepository.findByEmail(email);
+    }
 }

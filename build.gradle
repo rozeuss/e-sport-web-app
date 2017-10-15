@@ -17,6 +17,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
+
 group = 'pl.my.e.sport.web.app'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
@@ -42,6 +43,6 @@ dependencies {
 
 //DO MAPSTRUCT (2)
 // OR use this with Java 8 and beyond
-//	compile 'org.mapstruct:mapstruct-jdk8:1.2.0.Beta1'
-//	apt 'org.mapstruct:mapstruct-processor:1.2.0.Beta1'
+//	compile 'org.mapstruct:mapstruct-jdk8:1.1.0.Final'
+//	apt 'org.mapstruct:mapstruct-processor:1.1.0.Final'
 }

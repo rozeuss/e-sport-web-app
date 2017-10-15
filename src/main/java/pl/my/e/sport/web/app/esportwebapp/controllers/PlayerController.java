@@ -24,7 +24,8 @@ public class PlayerController {
 
     @RequestMapping(value = "/sayHello", method = RequestMethod.GET)
     public String sayHello() {
-        StringUtils.isEmpty("dwa");
+
+        log.info(StringUtils.isEmpty("dwa"));
         log.error("strzala");
         return "hello world";
     }
@@ -33,7 +34,7 @@ public class PlayerController {
     public Player addNew(@RequestParam("login") String login, @RequestParam("playerName") String playerName,
                          @RequestParam(value = "firstName", required = false) String firstName,
                          @RequestParam("lastName") String lastName) {
-        return playerService.save(new Player(login, playerName, firstName, lastName));
+        return playerService.save(new Player(login, playerName, firstName, lastName, null));
     }
 
     @GetMapping("/findAll")
