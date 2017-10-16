@@ -26,6 +26,20 @@ repositories {
 	mavenCentral()
 }
 
+configurations {
+	apt
+}
+dependencies {
+	apt group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
+	apt group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.2.0.CR1'
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
+	compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version: '1.2.0.CR1'
+}
+
+compileJava {
+	options.annotationProcessorPath = configurations.apt
+}
+
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web'){
 		exclude module: 'org.springframework.boot:spring-boot-starter-logging'
@@ -34,7 +48,7 @@ dependencies {
 	compile('org.springframework.security:spring-security-web')
 	compile('org.springframework.security:spring-security-config')
 	runtime('org.postgresql:postgresql')
-	compileOnly('org.projectlombok:lombok')
+	//compileOnly('org.projectlombok:lombok')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	compile group: 'log4j', name: 'log4j', version: '1.2.17'
 	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.6.1'

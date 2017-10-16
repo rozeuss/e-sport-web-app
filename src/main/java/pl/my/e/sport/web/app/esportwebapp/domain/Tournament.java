@@ -39,6 +39,12 @@ public class Tournament {
     @NotNull
     private BigDecimal prize;
 
+//    @NotNull
+//    private int signedParticipants;
+//@TODO
+//    @NotNull
+//    private int maxNumberOfParticipants;
+
     public Tournament(String title, String description, String location, LocalDate startDate,
                       LocalDate endDate, BigDecimal prize) {
         this.title = title;

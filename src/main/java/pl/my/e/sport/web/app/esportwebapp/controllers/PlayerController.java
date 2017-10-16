@@ -5,6 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.my.e.sport.web.app.esportwebapp.domain.Player;
+import pl.my.e.sport.web.app.esportwebapp.domain.dto.PlayerDto;
+import pl.my.e.sport.web.app.esportwebapp.domain.dto.PlayerMapper;
 import pl.my.e.sport.web.app.esportwebapp.services.PlayerService;
 
 import java.util.List;
@@ -16,10 +18,12 @@ import java.util.List;
 public class PlayerController {
 
     private PlayerService playerService;
+    private PlayerMapper playerMapper;
 
     @Autowired
-    public PlayerController(PlayerService playerService) {
+    public PlayerController(PlayerService playerService, PlayerMapper playerMapper) {
         this.playerService = playerService;
+        this.playerMapper = playerMapper;
     }
 
     @RequestMapping(value = "/sayHello", method = RequestMethod.GET)
@@ -43,8 +47,9 @@ public class PlayerController {
     }
 
     @GetMapping("/findById")
-    public Player findById(@RequestParam("id") long id) {
-        return playerService.findById(id);
+    public PlayerDto findById(@RequestParam("id") long id) {
+        return playerMapper.toDto(playerService.findById(id));
+        //return playerService.findById(id);
     }
 
     @GetMapping("/findByLastName")

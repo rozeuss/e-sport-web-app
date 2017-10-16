@@ -7,13 +7,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PlayerDto {
 
-    private String login;
+    private long id;
     private String playerName;
     private String firstName;
     private String lastName;
 
-    public PlayerDto(String login, String playerName, String firstName, String lastName) {
-        this.login = login;
+    public PlayerDto(String playerName, String firstName, String lastName) {
         this.playerName = playerName;
         this.firstName = firstName;
         this.lastName = lastName;
