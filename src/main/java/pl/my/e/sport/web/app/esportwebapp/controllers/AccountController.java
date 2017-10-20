@@ -29,7 +29,8 @@ public class AccountController {
     }
 
     @GetMapping("/login")
-    public Boolean login(AccountDto accountDto) {
+    public Boolean login(@RequestParam String email, @RequestParam String password) {
+        AccountDto accountDto = new AccountDto(email, password);
         return accountService.checkCredentials(accountMapper.fromDto(accountDto));
     }
 

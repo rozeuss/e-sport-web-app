@@ -2,14 +2,12 @@ package pl.my.e.sport.web.app.esportwebapp.controllers;
 
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import pl.my.e.sport.web.app.esportwebapp.domain.Team;
+import org.springframework.web.bind.annotation.*;
 import pl.my.e.sport.web.app.esportwebapp.domain.dto.TeamDto;
 import pl.my.e.sport.web.app.esportwebapp.domain.dto.TeamMapper;
 import pl.my.e.sport.web.app.esportwebapp.services.TeamService;
+
+import java.util.List;
 
 @SuppressWarnings("SpringJavaAutowiringInspection")
 @Log4j
@@ -27,21 +25,28 @@ public class TeamController {
     }
 
     @PostMapping("/create")
-    public TeamDto create(TeamDto teamDto) {
+    public TeamDto create(@RequestParam String name, @RequestParam String country) {
+        TeamDto teamDto = new TeamDto(name, country);
         return teamMapper.toDto(teamService.create(teamMapper.fromDto(teamDto)));
     }
 
     @GetMapping("/findByName")
-    public Team findByName(String name) {
-        return teamService.findByName(name);
+    public TeamDto findByName(String name) {
+        return teamMapper.toDto(teamService.findByName(name));
     }
 
     @GetMapping("/findById")
-    public Team findById(Long id) {
-        return teamService.findById(id);
+    public TeamDto findById(Long id) {
+        return teamMapper.toDto(teamService.findById(id));
     }
 
-//    List<Team> listAll();
-//
-//    Team findByAccountId(Long id);
+    @GetMapping("/listAll")
+    public List<TeamDto> listAll() {
+        return teamMapper.toDto(teamService.listAll());
+    }
+
+    @GetMapping("/findByAccountId")
+    public TeamDto findByAccountId(Long id) {
+        return teamMapper.toDto(teamService.findByAccountId(id));
+    }
 }

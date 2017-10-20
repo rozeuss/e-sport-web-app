@@ -28,7 +28,7 @@ public class PlayerController {
 
     @RequestMapping(value = "/sayHello", method = RequestMethod.GET)
     public String sayHello() {
-
+        //TODO do usuniecia
         log.info(StringUtils.isEmpty("dwa"));
         log.error("strzala");
         return "hello world";

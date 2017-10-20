@@ -109,5 +109,6 @@ class TestDataProvider implements CommandLineRunner {
         accountRepository.save(generateAccount("qaz@qaz.pl", "pass", accountTypeRepository.findOne(1L)));
         accountRepository.save(generateAccount("qwe@qwe.pl", "pass", accountTypeRepository.findOne(1L)));
         accountRepository.save(generateAccount("qsc@qsc.pl", "pass", accountTypeRepository.findOne(1L)));
+        accountRepository.save(generateAccount("test@test.pl", "pass", accountTypeRepository.findOne(1L)));
     }
 }
