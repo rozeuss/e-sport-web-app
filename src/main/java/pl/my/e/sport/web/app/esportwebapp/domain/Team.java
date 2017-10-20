@@ -2,7 +2,6 @@ package pl.my.e.sport.web.app.esportwebapp.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -21,25 +20,16 @@ public class Team {
     @NotNull
     private String name;
 
-    @Email
-    @NotNull
-    @Column(unique = true)
-    private String email;
-
-    @NotNull
-    private String password;
-
     @NotNull
     private String country;
 
+    //@NotNull
     @OneToOne
-    private Statistics statistics;
+    private Account account;
 
-    public Team(String name, String email, String password, String country, Statistics statistics) {
+    public Team(String name, String country, Account account) {
         this.name = name;
-        this.email = email;
-        this.password = password;
         this.country = country;
-        this.statistics = statistics;
+        this.account = account;
     }
 }

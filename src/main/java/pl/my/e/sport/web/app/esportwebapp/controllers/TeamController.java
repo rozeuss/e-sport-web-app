@@ -20,12 +20,12 @@ public class TeamController {
 
     @PostMapping("/addNew")
     public Team addNew(@RequestParam("teamName") String name, String email) {
-        return teamService.save(new Team(name, email, null, null, null));
+        return teamService.save(new Team(name, email, null));
     }
 
-    @GetMapping("/findByEmail")
-    public Team findByEmail(String email) {
-        return teamService.findByEmail(email);
+    @GetMapping("/findByName")
+    public Team findByEmail(String name) {
+        return teamService.findByName(name);
     }
 
 }

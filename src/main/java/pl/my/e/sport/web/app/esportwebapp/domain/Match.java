@@ -19,6 +19,9 @@ public class Match {
     @SequenceGenerator(name = "public", sequenceName = "match_seq", allocationSize = 1)
     private long id;
 
+    @ManyToOne
+    private Match nextMatchId;
+
     @NotNull
     private LocalDate startDate;
 
@@ -39,6 +42,8 @@ public class Match {
     @NotNull
     @ManyToOne
     private Tournament tournament;
+
+    private int phase;
 
     public Match(LocalDate startDate, Team teamAway, Team teamHome, long scoreAway,
                  long scoreHome, Tournament tournament) {

@@ -7,6 +7,6 @@ import pl.my.e.sport.web.app.esportwebapp.domain.Team;
 @Repository
 public interface TeamRepository extends CrudRepository<Team, Long> {
 
-    Team findByEmail(String email);
+    Team findByName(String name);
 
 }

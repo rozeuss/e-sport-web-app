@@ -35,10 +35,10 @@ public class PlayerController {
     }
 
     @PostMapping("/addNew")
-    public Player addNew(@RequestParam("login") String login, @RequestParam("playerName") String playerName,
+    public Player addNew(@RequestParam("playerName") String playerName,
                          @RequestParam(value = "firstName", required = false) String firstName,
                          @RequestParam("lastName") String lastName) {
-        return playerService.save(new Player(login, playerName, firstName, lastName, null));
+        return playerService.save(new Player(playerName, firstName, lastName, null));
     }
 
     @GetMapping("/findAll")

@@ -12,5 +12,5 @@ public interface TeamService {
 
     Team save(Team team);
 
-    Team findByEmail(String email);
+    Team findByName(String name);
 }

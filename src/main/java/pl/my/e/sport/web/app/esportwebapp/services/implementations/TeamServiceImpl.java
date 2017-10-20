@@ -37,7 +37,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Team findByEmail(String email) {
-        return teamRepository.findByEmail(email);
+    public Team findByName(String email) {
+        return teamRepository.findByName(email);
     }
 }
