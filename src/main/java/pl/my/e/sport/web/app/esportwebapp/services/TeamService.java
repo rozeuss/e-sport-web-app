@@ -10,7 +10,9 @@ public interface TeamService {
 
     Team findById(Long id);
 
-    Team save(Team team);
+    Team create(Team team);
 
     Team findByName(String name);
+
+    Team findByAccountId(Long id);
 }

@@ -32,12 +32,17 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Team save(Team team) {
+    public Team create(Team team) {
         return teamRepository.save(team);
     }
 
     @Override
-    public Team findByName(String email) {
-        return teamRepository.findByName(email);
+    public Team findByName(String name) {
+        return teamRepository.findByName(name);
+    }
+
+    @Override
+    public Team findByAccountId(Long id) {
+        return teamRepository.findByAccount_Id(id);
     }
 }

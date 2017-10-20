@@ -3,10 +3,7 @@ package pl.my.e.sport.web.app.esportwebapp.domain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import pl.my.e.sport.web.app.esportwebapp.repositories.MatchRepository;
-import pl.my.e.sport.web.app.esportwebapp.repositories.PlayerRepository;
-import pl.my.e.sport.web.app.esportwebapp.repositories.TeamRepository;
-import pl.my.e.sport.web.app.esportwebapp.repositories.TournamentRepository;
+import pl.my.e.sport.web.app.esportwebapp.repositories.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -18,24 +15,30 @@ class TestDataProvider implements CommandLineRunner {
     private TeamRepository teamRepository;
     private TournamentRepository tournamentRepository;
     private MatchRepository matchRepository;
+    private AccountTypeRepository accountTypeRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
     public TestDataProvider(PlayerRepository playerRepository, TeamRepository teamRepository,
-                            TournamentRepository tournamentRepository,
-                            MatchRepository matchRepository) {
+                            TournamentRepository tournamentRepository, MatchRepository matchRepository,
+                            AccountTypeRepository accountTypeRepository, AccountRepository accountRepository) {
         this.playerRepository = playerRepository;
         this.teamRepository = teamRepository;
         this.tournamentRepository = tournamentRepository;
         this.matchRepository = matchRepository;
+        this.accountTypeRepository = accountTypeRepository;
+        this.accountRepository = accountRepository;
     }
-
 
     @Override
     public void run(String... args) throws Exception {
+        generateAccountTypes();
+        generateAccounts();
         generateTeams();
         generatePlayers();
         generateTournaments();
         generateMatches();
+
     }
 
     private Player generatePlayer(String playerName, String firstName, String lastName, Team team) {
@@ -55,14 +58,15 @@ class TestDataProvider implements CommandLineRunner {
                 "Red1234", teamRepository.findOne(2L)));
     }
 
-    private Team generateTeam(String name, String country) {
-        return new Team(name, country, null);
+    private Team generateTeam(String name, String country, Account account) {
+        return new Team(name, country, account);
     }
 
     private void generateTeams() {
-        teamRepository.save(generateTeam("ONE", "Poland"));
-        teamRepository.save(generateTeam("TWO", "Poland"));
-        teamRepository.save(generateTeam("THREE", "England"));
+        teamRepository.save(generateTeam("ONE", "Poland", accountRepository.findOne(1L)));
+        teamRepository.save(generateTeam("TWO", "Poland", accountRepository.findOne(2L)));
+        teamRepository.save(generateTeam("THREE", "England", accountRepository.findOne(3L)));
+        teamRepository.save(generateTeam("FOUR", "England", accountRepository.findOne(4L)));
     }
 
     private Tournament generateTournament(String title, String description, String location,
@@ -89,5 +93,21 @@ class TestDataProvider implements CommandLineRunner {
         matchRepository.save(generateMatch(LocalDate.of(2017, 11, 5),
                 teamRepository.findOne(2L), teamRepository.findOne(1L), 0, 3,
                 tournamentRepository.findOne(1L)));
+    }
+
+    private void generateAccountTypes() {
+        accountTypeRepository.save(new AccountType("TEAM_MANAGER"));
+        accountTypeRepository.save(new AccountType("BOOKMAKER"));
+    }
+
+    private Account generateAccount(String email, String pass, AccountType accountType) {
+        return new Account(email, pass, accountType);
+    }
+
+    private void generateAccounts() {
+        accountRepository.save(generateAccount("abc@abc.pl", "pass", accountTypeRepository.findOne(1L)));
+        accountRepository.save(generateAccount("qaz@qaz.pl", "pass", accountTypeRepository.findOne(1L)));
+        accountRepository.save(generateAccount("qwe@qwe.pl", "pass", accountTypeRepository.findOne(1L)));
+        accountRepository.save(generateAccount("qsc@qsc.pl", "pass", accountTypeRepository.findOne(1L)));
     }
 }

@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "team")
+@Table(name = "team", uniqueConstraints = @UniqueConstraint(columnNames = "account"))
 public class Team {
 
     @Id
@@ -23,7 +23,7 @@ public class Team {
     @NotNull
     private String country;
 
-    //@NotNull
+    @NotNull
     @OneToOne
     private Account account;
 

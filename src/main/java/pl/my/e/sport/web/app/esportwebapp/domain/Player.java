@@ -12,7 +12,8 @@ import javax.persistence.*;
 public class Player {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "public")
+    @SequenceGenerator(name = "public", sequenceName = "player_seq", allocationSize = 1)
     private long id;
     private String playerName;
     private String firstName;

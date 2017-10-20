@@ -9,7 +9,7 @@ public interface PlayerMapper {
 
     PlayerMapper INSTANCE = Mappers.getMapper(PlayerMapper.class);
 
-    public Player fromDto(PlayerDto playerDto);
+    Player fromDto(PlayerDto playerDto);
 
-    public PlayerDto toDto(Player player);
+    PlayerDto toDto(Player player);
 }

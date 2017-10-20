@@ -25,24 +25,21 @@ public class Match {
     @NotNull
     private LocalDate startDate;
 
-    @NotNull
     @ManyToOne
     private Team teamAway;
 
-    @NotNull
     @ManyToOne
     private Team teamHome;
 
-    @NotNull
     private long scoreAway;
 
-    @NotNull
     private long scoreHome;
 
     @NotNull
     @ManyToOne
     private Tournament tournament;
 
+    //kiedy nextMatch == null && phase == null to jest to playoff
     private int phase;
 
     public Match(LocalDate startDate, Team teamAway, Team teamHome, long scoreAway,

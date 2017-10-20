@@ -9,4 +9,6 @@ public interface TeamRepository extends CrudRepository<Team, Long> {
 
     Team findByName(String name);
 
+    Team findByAccount_Id(Long id);
+
 }

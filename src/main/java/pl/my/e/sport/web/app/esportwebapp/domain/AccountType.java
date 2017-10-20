@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 @Data
 @NoArgsConstructor
 @Entity
@@ -15,13 +13,15 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class AccountType {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(unique = true)
-    @NotNull
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "public")
+    @SequenceGenerator(name = "public", sequenceName = "account_type_seq", allocationSize = 1)
+    private long id;
 
     @NotNull
     private String role;
 
+    public AccountType(String role) {
+        this.role = role;
+    }
 }
 
