@@ -4,7 +4,6 @@ import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.my.e.sport.web.app.esportwebapp.domain.Player;
 import pl.my.e.sport.web.app.esportwebapp.domain.dto.PlayerDto;
 import pl.my.e.sport.web.app.esportwebapp.domain.dto.PlayerMapper;
 import pl.my.e.sport.web.app.esportwebapp.services.PlayerService;
@@ -34,27 +33,34 @@ public class PlayerController {
         return "hello world";
     }
 
-    @PostMapping("/addNew")
-    public PlayerDto addNew(@RequestParam("playerName") String playerName,
+    @PostMapping("/create")
+    public PlayerDto create(@RequestParam("playerName") String playerName,
                             @RequestParam(value = "firstName", required = false) String firstName,
-                            @RequestParam("lastName") String lastName) {
-        return playerMapper.toDto(playerService.save(new Player(playerName, firstName, lastName, null)));
+                            @RequestParam(value = "lastName", required = false) String lastName,
+                            @RequestParam("teamId") Long teamId) {
+        PlayerDto playerDto = new PlayerDto(playerName, firstName, lastName, teamId);
+        return playerMapper.toDto(playerService.create(playerMapper.fromDto(playerDto)));
     }
 
     @GetMapping("/findAll")
-    public List<Player> findAll() {
-        return playerService.listAll();
+    public List<PlayerDto> findAll() {
+        return playerMapper.toDto(playerService.listAll());
     }
 
     @GetMapping("/findById")
-    public PlayerDto findById(@RequestParam("id") long id) {
+    public PlayerDto findById(@RequestParam("id") Long id) {
         return playerMapper.toDto(playerService.findById(id));
         //return playerService.findById(id);
     }
 
     @GetMapping("/findByLastName")
-    public List<Player> findByLastName(@RequestParam("lastName") String lastName) {
-        return playerService.findByLastName(lastName);
+    public PlayerDto findByLastName(@RequestParam("lastName") String lastName) {
+        return playerMapper.toDto(playerService.findByLastName(lastName));
 
+    }
+
+    @GetMapping("/findAllByTeamId/{id}")
+    public List<PlayerDto> findAllByTeamId(@PathVariable("id") Long id) {
+        return playerMapper.toDto(playerService.findAllByTeamId(id));
     }
 }

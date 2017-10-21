@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
@@ -15,6 +16,7 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "public")
     @SequenceGenerator(name = "public", sequenceName = "player_seq", allocationSize = 1)
     private long id;
+    @NotNull
     private String playerName;
     private String firstName;
     private String lastName;

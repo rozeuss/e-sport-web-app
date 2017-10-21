@@ -1,5 +1,6 @@
 package pl.my.e.sport.web.app.esportwebapp.services.implementations;
 
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.my.e.sport.web.app.esportwebapp.domain.Player;
@@ -9,9 +10,11 @@ import pl.my.e.sport.web.app.esportwebapp.services.PlayerService;
 import java.util.ArrayList;
 import java.util.List;
 
+@Log4j
 @Service
 public class PlayerServiceImpl implements PlayerService {
 
+    public static final int MAX_PLAYERS_IN_TEAM = 5;
     private PlayerRepository playerRepository;
 
     @Autowired
@@ -27,8 +30,18 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public List<Player> findByLastName(String lastName) {
+    public Player findByLastName(String lastName) {
         return playerRepository.findByLastName(lastName);
+    }
+
+    @Override
+    public Player findByPlayerName(String playerName) {
+        return playerRepository.findByPlayerName(playerName);
+    }
+
+    @Override
+    public List<Player> findAllByTeamId(Long id) {
+        return playerRepository.findAllByTeam_Id(id);
     }
 
     @Override
@@ -37,7 +50,12 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Player save(Player player) {
+    public Player create(Player player) {
+        Long numberOfPlayersInTeam = playerRepository.countByTeam_Id(player.getTeam().getId());
+        if (numberOfPlayersInTeam == MAX_PLAYERS_IN_TEAM) {
+            return null;
+        }
+
         return playerRepository.save(player);
     }
 }

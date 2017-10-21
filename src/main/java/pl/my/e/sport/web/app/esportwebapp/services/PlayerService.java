@@ -8,9 +8,13 @@ public interface PlayerService {
 
     List<Player> listAll();
 
-    List<Player> findByLastName(String lastName);
+    Player findByLastName(String lastName);
+
+    Player findByPlayerName(String playerName);
+
+    List<Player> findAllByTeamId(Long id);
 
     Player findById(Long id);
 
-    Player save(Player player);
+    Player create(Player player);
 }

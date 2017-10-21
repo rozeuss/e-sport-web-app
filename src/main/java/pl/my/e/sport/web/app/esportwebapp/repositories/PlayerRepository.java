@@ -9,6 +9,11 @@ import java.util.List;
 @Repository
 public interface PlayerRepository extends CrudRepository<Player, Long> {
 
-    List<Player> findByLastName(String lastName);
+    Player findByLastName(String lastName);
 
+    Player findByPlayerName(String playerName);
+
+    List<Player> findAllByTeam_Id(Long id);
+
+    Long countByTeam_Id(Long id);
 }
