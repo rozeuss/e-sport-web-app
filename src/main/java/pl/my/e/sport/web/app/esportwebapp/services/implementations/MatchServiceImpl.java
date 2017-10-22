@@ -22,4 +22,19 @@ public class MatchServiceImpl implements MatchService {
     public Match save(Match match) {
         return null;
     }
+
+    @Override
+    public Match findPlayoff() {
+        return null;
+    }
+
+    @Override
+    public List<Match> createMatchesForTournament(long id, int numberOfParticipants) {
+        return null;
+    }
+
+    @Override
+    public Match create(Match match) {
+        return null;
+    }
 }
