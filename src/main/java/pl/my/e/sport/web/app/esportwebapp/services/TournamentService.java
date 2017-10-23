@@ -10,6 +10,6 @@ public interface TournamentService {
 
     Tournament findById(Long id);
 
-    Tournament save(Tournament tournament);
+    Tournament create(Tournament tournament);
 
 }

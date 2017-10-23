@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class PlayerServiceImpl implements PlayerService {
 
-    public static final int MAX_PLAYERS_IN_TEAM = 5;
+    private static final int MAX_PLAYERS_IN_TEAM = 5;
     private PlayerRepository playerRepository;
 
     @Autowired

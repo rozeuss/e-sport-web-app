@@ -14,10 +14,10 @@ public interface TeamMapper {
     TeamMapper INSTANCE = Mappers.getMapper(TeamMapper.class);
 
     @InheritInverseConfiguration
-    Team fromDto(TeamDto playerDto);
+    Team fromDto(TeamDto teamDto);
 
     @Mapping(target = "accountId", source = "account.id")
-    TeamDto toDto(Team player);
+    TeamDto toDto(Team team);
 
     List<TeamDto> toDto(List<Team> teams);
 }
