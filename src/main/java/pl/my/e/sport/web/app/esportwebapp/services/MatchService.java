@@ -12,4 +12,10 @@ public interface MatchService {
 
     Match save(Match match);
 
+    Match findPlayoff();
+
+    List<Match> createMatchesForTournament(long id, int numberOfParticipants);
+
+    Match create(Match match);
+
 }
