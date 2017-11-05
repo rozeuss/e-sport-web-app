@@ -25,8 +25,7 @@ public class TournamentController {
     }
 
     @PostMapping("/create")
-    public @ResponseBody
-    TournamentDto create(@RequestBody TournamentDto tournamentDto) {
+    public @ResponseBody TournamentDto create(@RequestBody TournamentDto tournamentDto) {
         return tournamentMapper.toDto(tournamentService.create(tournamentMapper.fromDto(tournamentDto)));
     }
 
