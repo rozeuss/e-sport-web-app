@@ -19,6 +19,8 @@ public class TournamentDto {
     private String startDate;
     private String endDate;
     private BigDecimal prize;
+    private long organizerId;
+
 
     public TournamentDto(long id, String title, String description,
                          String location, String startDate, String endDate, BigDecimal prize) {

@@ -20,9 +20,8 @@ public class Match {
     private long id;
 
     @ManyToOne
-    private Match nextMatchId;
-
-    @NotNull
+    private Match nextMatch;
+    //    @NotNull @Todo i chyba raczej LocalDateTime!
     private LocalDate startDate;
 
     @ManyToOne

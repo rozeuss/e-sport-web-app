@@ -39,14 +39,18 @@ public class Tournament {
     @NotNull
     private BigDecimal prize;
 
+    @NotNull
+    @ManyToOne
+    private Account organizer;
 
     public Tournament(String title, String description, String location, LocalDate startDate,
-                      LocalDate endDate, BigDecimal prize) {
+                      LocalDate endDate, BigDecimal prize, Account organizer) {
         this.title = title;
         this.description = description;
         this.location = location;
         this.startDate = startDate;
-        this.prize = prize;
         this.endDate = endDate;
+        this.prize = prize;
+        this.organizer = organizer;
     }
 }

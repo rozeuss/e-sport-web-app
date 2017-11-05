@@ -1,6 +1,8 @@
 package pl.my.e.sport.web.app.esportwebapp.domain.dto;
 
+import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import pl.my.e.sport.web.app.esportwebapp.domain.Tournament;
 
@@ -17,8 +19,10 @@ public interface TournamentMapper {
 
     TournamentMapper INSTANCE = Mappers.getMapper(TournamentMapper.class);
 
+    @InheritInverseConfiguration
     Tournament fromDto(TournamentDto tournamentDto);
 
+    @Mapping(target = "organizerId", source = "organizer.id")
     TournamentDto toDto(Tournament tournament);
 
     List<TournamentDto> toDto(List<Tournament> tournaments);

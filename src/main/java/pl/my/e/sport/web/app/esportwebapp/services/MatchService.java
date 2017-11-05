@@ -6,16 +6,14 @@ import java.util.List;
 
 public interface MatchService {
 
-    List<Match> listAll();
-
     Match findById(Long id);
 
-    Match save(Match match);
-
-    Match findPlayoff();
-
-    List<Match> createMatchesForTournament(long id, int numberOfParticipants);
+    List<Match> createMatchesForTournament(Long tournamentId, Integer numberOfParticipants, Boolean hasPlayoff);
 
     Match create(Match match);
+
+    Match getPlayoff(Long tournamentId);
+
+    List<Match> findAllByTournamentId(Long id);
 
 }

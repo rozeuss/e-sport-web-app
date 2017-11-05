@@ -49,4 +49,10 @@ public class TeamController {
     public TeamDto findByAccountId(Long id) {
         return teamMapper.toDto(teamService.findByAccountId(id));
     }
+
+
+    @GetMapping("findAllSignedForTournament/{tournamentId}")
+    public List<TeamDto> findAllSignedForTournament(@PathVariable("tournamentId") Long tournamentId) {
+        return teamMapper.toDto(teamService.findAllSignedForTournament(tournamentId));
+    }
 }

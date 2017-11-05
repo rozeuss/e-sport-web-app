@@ -25,7 +25,8 @@ public class TournamentController {
     }
 
     @PostMapping("/create")
-    public TournamentDto create(@RequestBody TournamentDto tournamentDto) {
+    public @ResponseBody
+    TournamentDto create(@RequestBody TournamentDto tournamentDto) {
         return tournamentMapper.toDto(tournamentService.create(tournamentMapper.fromDto(tournamentDto)));
     }
 
@@ -39,4 +40,8 @@ public class TournamentController {
         return tournamentMapper.toDto(tournamentService.listAll());
     }
 
+    @GetMapping("/findAllByOrganizer/{id}")
+    public List<TournamentDto> findAllByOrganizer(@PathVariable("id") Long accountId) {
+        return tournamentMapper.toDto(tournamentService.findAllByOrganizer(accountId));
+    }
 }

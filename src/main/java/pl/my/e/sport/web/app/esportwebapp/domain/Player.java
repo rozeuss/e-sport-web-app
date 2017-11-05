@@ -22,11 +22,15 @@ public class Player {
     private String lastName;
     @ManyToOne
     private Team team;
+    //  @NotNull TODO odkomentowac
+    @OneToOne
+    private Statistics statistics;
 
-    public Player(String playerName, String firstName, String lastName, Team team) {
+    public Player(String playerName, String firstName, String lastName, Team team, Statistics statistics) {
         this.playerName = playerName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.team = team;
+        this.statistics = statistics;
     }
 }

@@ -15,4 +15,6 @@ public interface TeamService {
     Team findByName(String name);
 
     Team findByAccountId(Long id);
+
+    List<Team> findAllSignedForTournament(Long tournamentId);
 }

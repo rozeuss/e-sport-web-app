@@ -2,22 +2,24 @@ package pl.my.e.sport.web.app.esportwebapp.services.implementations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.my.e.sport.web.app.esportwebapp.domain.Match;
 import pl.my.e.sport.web.app.esportwebapp.domain.Team;
+import pl.my.e.sport.web.app.esportwebapp.repositories.MatchRepository;
 import pl.my.e.sport.web.app.esportwebapp.repositories.TeamRepository;
 import pl.my.e.sport.web.app.esportwebapp.services.TeamService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TeamServiceImpl implements TeamService {
 
     private TeamRepository teamRepository;
+    private MatchRepository matchRepository;
 
     @Autowired
-    public TeamServiceImpl(TeamRepository teamRepository) {
+    public TeamServiceImpl(TeamRepository teamRepository, MatchRepository matchRepository) {
         this.teamRepository = teamRepository;
+        this.matchRepository = matchRepository;
     }
 
     @Override
@@ -56,8 +58,35 @@ public class TeamServiceImpl implements TeamService {
     public Team findByAccountId(Long id) {
         Optional<Team> teamByAccountId = teamRepository.findByAccount_Id(id);
         if (!teamByAccountId.isPresent()) {
-            return null; //zwraca no content, ktore podejscie lepsze nie wiem @TODO RACZEJ NULL LEPSZY BO HTTP.NORESPONSE
+            return null; //zwraca no content, ktore podejscie lepsze nie wiem @TODO RACZEJ NULL LEPSZY HTTP.NORESPONSE
         }
         return teamByAccountId.get();
     }
+
+    @Override
+    public List<Team> findAllSignedForTournament(Long tournamentId) {
+        List<Match> allByTournamentId = matchRepository.findAllByTournamentId(tournamentId);
+        Set<Team> participants = new HashSet<>();
+        Optional.ofNullable(allByTournamentId)
+                .orElseGet(Collections::emptyList)
+                .stream()
+                .filter(match -> Objects.nonNull(match.getTeamAway()) && Objects.nonNull(match.getTeamHome()))
+                .forEach(match -> {
+                    participants.add(match.getTeamAway());
+                    participants.add(match.getTeamHome());
+                });
+        return new ArrayList<>(participants);
+    }
+
+//    public List<Team> findAllSignedForTournament(Long tournamentId) {
+//        List<Match> allByTournamentId = matchRepository.findAllByTournamentId(tournamentId);
+//        Set<Team> participants = new HashSet<>();
+//        allByTournamentId.stream()
+//                .filter(match -> Objects.nonNull(match.getTeamAway()) && Objects.nonNull(match.getTeamHome()))
+//                .forEach(match -> {
+//                    participants.add(match.getTeamAway());
+//                    participants.add(match.getTeamHome());
+//                });
+//        return new ArrayList<>(participants);
+//    }
 }

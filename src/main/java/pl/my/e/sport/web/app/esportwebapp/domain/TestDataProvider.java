@@ -41,21 +41,22 @@ class TestDataProvider implements CommandLineRunner {
 
     }
 
-    private Player generatePlayer(String playerName, String firstName, String lastName, Team team) {
-        return new Player(playerName, firstName, lastName, team);
+    private Player generatePlayer(String playerName, String firstName, String lastName, Team team,
+                                  Statistics statistics) {
+        return new Player(playerName, firstName, lastName, team, null);
     }
 
     private void generatePlayers() {
         playerRepository.save(generatePlayer("player", "Dam",
-                "Red", teamRepository.findOne(1L)));
+                "Red", teamRepository.findOne(1L), null));
         playerRepository.save(generatePlayer("slayer", "Dam1",
-                "Red1", teamRepository.findOne(1L)));
+                "Red1", teamRepository.findOne(1L), null));
         playerRepository.save(generatePlayer("ultraDzik", "Dam12",
-                "Red12", teamRepository.findOne(1L)));
+                "Red12", teamRepository.findOne(1L), null));
         playerRepository.save(generatePlayer("knur2000", "Dam123",
-                "Red123", teamRepository.findOne(2L)));
+                "Red123", teamRepository.findOne(2L), null));
         playerRepository.save(generatePlayer("miszcz_pl", "Dam1234",
-                "Red1234", teamRepository.findOne(2L)));
+                "Red1234", teamRepository.findOne(2L), null));
     }
 
     private Team generateTeam(String name, String country, Account account) {
@@ -71,7 +72,8 @@ class TestDataProvider implements CommandLineRunner {
 
     private Tournament generateTournament(String title, String description, String location,
                                           LocalDate startDate, LocalDate endDate, BigDecimal prize) {
-        return new Tournament(title, description, location, startDate, endDate, prize);
+        return new Tournament(title, description, location, startDate, endDate, prize,
+                accountRepository.findOne(1L));
     }
 
     private void generateTournaments() {
@@ -79,6 +81,10 @@ class TestDataProvider implements CommandLineRunner {
                 "Super festiwal.\n Nagroda 500zł", "Poland, Katowice",
                 LocalDate.of(2017, 11, 1), LocalDate.of(2017, 11, 14),
                 new BigDecimal(5000.253)));
+        tournamentRepository.save(generateTournament("RADOM JADOM",
+                "Super festiwal.\n Nagroda 5zł", "Poland, Radom",
+                LocalDate.of(2017, 12, 1), LocalDate.of(2017, 12, 5),
+                new BigDecimal(400)));
     }
 
     private Match generateMatch(LocalDate startDate, Team teamAway, Team teamHome, long scoreAway,

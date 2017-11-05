@@ -5,12 +5,14 @@ import org.springframework.stereotype.Repository;
 import pl.my.e.sport.web.app.esportwebapp.domain.Match;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface MatchRepository extends CrudRepository<Match, Long> {
 
-    Match findMatchByPhase(int phase);
+    Optional<Match> findMatchByPhase(Integer phase);
 
-    List<Match> findByTournament(long id);
+    List<Match> findAllByTournamentId(Long id);
 
+    Optional<Match> findByTournamentIdAndPhase(Long tournamentId, Integer phase);
 }

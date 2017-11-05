@@ -12,6 +12,7 @@ public class PlayerDto {
     private String firstName;
     private String lastName;
     private long teamId;
+    private StatisticsDto statistics;
 
     public PlayerDto(String playerName, String firstName, String lastName, long teamId) {
         this.playerName = playerName;

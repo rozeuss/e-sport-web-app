@@ -2,7 +2,9 @@ package pl.my.e.sport.web.app.esportwebapp.services.implementations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.my.e.sport.web.app.esportwebapp.domain.Account;
 import pl.my.e.sport.web.app.esportwebapp.domain.Tournament;
+import pl.my.e.sport.web.app.esportwebapp.repositories.AccountRepository;
 import pl.my.e.sport.web.app.esportwebapp.repositories.TournamentRepository;
 import pl.my.e.sport.web.app.esportwebapp.services.TournamentService;
 
@@ -13,10 +15,12 @@ import java.util.List;
 public class TournamentServiceImpl implements TournamentService {
 
     private TournamentRepository tournamentRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
-    public TournamentServiceImpl(TournamentRepository tournamentRepository) {
+    public TournamentServiceImpl(TournamentRepository tournamentRepository, AccountRepository accountRepository) {
         this.tournamentRepository = tournamentRepository;
+        this.accountRepository = accountRepository;
     }
 
     @Override
@@ -36,7 +40,15 @@ public class TournamentServiceImpl implements TournamentService {
         if (!tournament.getEndDate().isAfter(tournament.getStartDate())) {
             return null;
         } else {
+            //TODO ponizsze w celach testowych, pozniej pobierane z tokena
+            Account one = accountRepository.findOne(1L);
+            tournament.setOrganizer(one);
             return tournamentRepository.save(tournament);
         }
+    }
+
+    @Override
+    public List<Tournament> findAllByOrganizer(Long accountId) {
+        return tournamentRepository.findAllByOrganizerId(accountId);
     }
 }
