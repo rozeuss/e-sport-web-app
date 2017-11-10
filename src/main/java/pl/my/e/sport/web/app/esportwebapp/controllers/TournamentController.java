@@ -43,4 +43,16 @@ public class TournamentController {
     public List<TournamentDto> findAllByOrganizer(@PathVariable("id") Long accountId) {
         return tournamentMapper.toDto(tournamentService.findAllByOrganizer(accountId));
     }
+
+    @PostMapping("/signUpForTournament")
+    public Boolean signUpForTournament(@RequestParam Long tournamentId, @RequestParam  Long teamId) {
+        return tournamentService.signUpForTournament(tournamentId, teamId);
+    }
+
+    @GetMapping("/isTeamAlreadySignedForTournament")
+    public Boolean isTeamAlreadySignedForTournament(@RequestParam("tournamentId") Long tournamentId,
+                                                    @RequestParam("teamId") Long teamId) {
+        return tournamentService.isTeamAlreadySignedForTournament(tournamentId, teamId);
+    }
+
 }

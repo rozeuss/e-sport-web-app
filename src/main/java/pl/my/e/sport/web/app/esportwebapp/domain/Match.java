@@ -30,24 +30,36 @@ public class Match {
     @ManyToOne
     private Team teamHome;
 
-    private long scoreAway;
+    private Long scoreAway;
 
-    private long scoreHome;
+    private Long scoreHome;
 
     @NotNull
     @ManyToOne
     private Tournament tournament;
 
     //kiedy nextMatch == null && phase == null to jest to playoff
-    private int phase;
+    private Integer phase;
 
-    public Match(LocalDate startDate, Team teamAway, Team teamHome, long scoreAway,
-                 long scoreHome, Tournament tournament) {
+    public Match(Match nextMatch, LocalDate startDate, Team teamAway, Team teamHome,
+                 Long scoreAway, Long scoreHome, Tournament tournament, Integer phase) {
+        this.nextMatch = nextMatch;
         this.startDate = startDate;
         this.teamAway = teamAway;
         this.teamHome = teamHome;
         this.scoreAway = scoreAway;
         this.scoreHome = scoreHome;
         this.tournament = tournament;
+        this.phase = phase;
     }
+//
+//    public Match(LocalDate startDate, Team teamAway, Team teamHome, Long scoreAway,
+//                 Long scoreHome, Tournament tournament) {
+//        this.startDate = startDate;
+//        this.teamAway = teamAway;
+//        this.teamHome = teamHome;
+//        this.scoreAway = scoreAway;
+//        this.scoreHome = scoreHome;
+//        this.tournament = tournament;
+//    }
 }

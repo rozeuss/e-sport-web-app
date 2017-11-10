@@ -14,4 +14,8 @@ public interface TournamentService {
 
     List<Tournament> findAllByOrganizer(Long accountId);
 
+    Boolean signUpForTournament(Long tournamentId, Long teamId);
+
+    Boolean isTeamAlreadySignedForTournament(Long tournamentId, Long teamId);
+
 }

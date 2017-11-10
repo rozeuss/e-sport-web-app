@@ -87,18 +87,24 @@ class TestDataProvider implements CommandLineRunner {
                 new BigDecimal(400)));
     }
 
-    private Match generateMatch(LocalDate startDate, Team teamAway, Team teamHome, long scoreAway,
-                                long scoreHome, Tournament tournament) {
-        return new Match(startDate, teamAway, teamHome, scoreAway, scoreHome, tournament);
+    private Match generateMatch(Match nextMatch, LocalDate startDate, Team teamAway, Team teamHome, Long scoreAway,
+                                Long scoreHome, Tournament tournament, Integer phase) {
+        return new Match(nextMatch, startDate, teamAway, teamHome, scoreAway, scoreHome, tournament, phase);
     }
 
     private void generateMatches() {
-        matchRepository.save(generateMatch(LocalDate.of(2017, 11, 1),
-                teamRepository.findOne(1L), teamRepository.findOne(2L), 2, 1,
-                tournamentRepository.findOne(1L)));
-        matchRepository.save(generateMatch(LocalDate.of(2017, 11, 5),
-                teamRepository.findOne(2L), teamRepository.findOne(1L), 0, 3,
-                tournamentRepository.findOne(1L)));
+        matchRepository.save(generateMatch(null, LocalDate.of(2017, 11, 1),
+                teamRepository.findOne(1L), teamRepository.findOne(2L), 2L, 1L,
+                tournamentRepository.findOne(1L), 0));
+        matchRepository.save(generateMatch(null, LocalDate.of(2017, 11, 5),
+                teamRepository.findOne(2L), teamRepository.findOne(1L), 0L, 3L,
+                tournamentRepository.findOne(1L), 0));
+        matchRepository.save(generateMatch(null, LocalDate.of(2017, 11, 5),
+                null, null, null, null,
+                tournamentRepository.findOne(1L),0));
+        matchRepository.save(generateMatch(null, LocalDate.of(2017, 11, 5),
+                null, null, null, null,
+                tournamentRepository.findOne(1L),0));
     }
 
     private void generateAccountTypes() {

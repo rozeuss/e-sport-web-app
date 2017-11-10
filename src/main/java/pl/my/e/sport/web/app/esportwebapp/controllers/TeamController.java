@@ -35,8 +35,8 @@ public class TeamController {
         return teamMapper.toDto(teamService.findByName(name));
     }
 
-    @GetMapping("/findById")
-    public TeamDto findById(Long id) {
+    @GetMapping("/findById/{teamId}")
+    public TeamDto findById(@PathVariable("teamId") Long id) {
         return teamMapper.toDto(teamService.findById(id));
     }
 

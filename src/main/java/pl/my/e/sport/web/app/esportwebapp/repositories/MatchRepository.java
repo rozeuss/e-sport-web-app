@@ -1,5 +1,6 @@
 package pl.my.e.sport.web.app.esportwebapp.repositories;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import pl.my.e.sport.web.app.esportwebapp.domain.Match;
@@ -15,4 +16,12 @@ public interface MatchRepository extends CrudRepository<Match, Long> {
     List<Match> findAllByTournamentId(Long id);
 
     Optional<Match> findByTournamentIdAndPhase(Long tournamentId, Integer phase);
+
+    // List<Match> findByTournamentIdAndNextMatchIsNotNullAndTeamAwayIsNullOrTeamHomeIsNull(Long tournamentId);
+
+    // @TODO zamienic = na <> albo IS NULL
+    @Query("SELECT m FROM Match m where m.nextMatch = null "
+            + "and m.tournament.id = ?1 and (m.teamAway = null or m.teamHome = null)")
+    List<Match> getOpeningMatches(Long tournamentId);
+
 }
