@@ -4,7 +4,9 @@ import pl.my.e.sport.web.app.esportwebapp.domain.Account;
 
 public interface AccountService {
 
-    boolean checkCredentials(Account account);
+    Account checkCredentials(Account account);
 
     Account create(Account account);
+
+    Account findByEmail(String email);
 }

@@ -3,6 +3,9 @@ package pl.my.e.sport.web.app.esportwebapp.domain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import pl.my.e.sport.web.app.esportwebapp.controllers.MatchController;
+import pl.my.e.sport.web.app.esportwebapp.controllers.TournamentController;
+import pl.my.e.sport.web.app.esportwebapp.domain.dto.TournamentDto;
 import pl.my.e.sport.web.app.esportwebapp.repositories.*;
 
 import java.math.BigDecimal;
@@ -17,17 +20,22 @@ class TestDataProvider implements CommandLineRunner {
     private MatchRepository matchRepository;
     private AccountTypeRepository accountTypeRepository;
     private AccountRepository accountRepository;
+    private TournamentController tournamentController;
+    private MatchController matchController;
 
     @Autowired
     public TestDataProvider(PlayerRepository playerRepository, TeamRepository teamRepository,
                             TournamentRepository tournamentRepository, MatchRepository matchRepository,
-                            AccountTypeRepository accountTypeRepository, AccountRepository accountRepository) {
+                            AccountTypeRepository accountTypeRepository, AccountRepository accountRepository,
+                            TournamentController tournamentController, MatchController matchController) {
         this.playerRepository = playerRepository;
         this.teamRepository = teamRepository;
         this.tournamentRepository = tournamentRepository;
         this.matchRepository = matchRepository;
         this.accountTypeRepository = accountTypeRepository;
         this.accountRepository = accountRepository;
+        this.tournamentController = tournamentController;
+        this.matchController = matchController;
     }
 
     @Override
@@ -38,6 +46,16 @@ class TestDataProvider implements CommandLineRunner {
         generatePlayers();
         generateTournaments();
         generateMatches();
+        TournamentDto tournamentDto = new TournamentDto();
+        tournamentDto.setDescription("gutens majonze");
+        tournamentDto.setEndDate("2018-06-06");
+        tournamentDto.setStartDate("2018-06-01");
+        tournamentDto.setLocation("KRAKOW POLSKA");
+        tournamentDto.setOrganizerId(1L);
+        tournamentDto.setPrize(new BigDecimal(5000.253));
+        tournamentDto.setTitle("TYTUL X");
+        TournamentDto tournamentDto1 = tournamentController.create(tournamentDto);
+        matchController.createMatches(tournamentDto1.getId(), 8, true);
 
     }
 

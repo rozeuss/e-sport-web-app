@@ -2,6 +2,7 @@ package pl.my.e.sport.web.app.esportwebapp.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.my.e.sport.web.app.esportwebapp.eventlisteners.MatchEventListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @Entity
+@EntityListeners(MatchEventListener.class)
 @Table(name = "match")
 public class Match {
 

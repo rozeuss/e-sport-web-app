@@ -9,6 +9,7 @@ import pl.my.e.sport.web.app.esportwebapp.repositories.TeamRepository;
 import pl.my.e.sport.web.app.esportwebapp.services.TeamService;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class TeamServiceImpl implements TeamService {
@@ -70,23 +71,11 @@ public class TeamServiceImpl implements TeamService {
         Optional.ofNullable(allByTournamentId)
                 .orElseGet(Collections::emptyList)
                 .stream()
-                .filter(match -> Objects.nonNull(match.getTeamAway()) && Objects.nonNull(match.getTeamHome()))
+                .filter(match -> Objects.nonNull(match.getTeamAway()) || Objects.nonNull(match.getTeamHome()))
                 .forEach(match -> {
                     participants.add(match.getTeamAway());
                     participants.add(match.getTeamHome());
                 });
-        return new ArrayList<>(participants);
+        return participants.stream().filter(Objects::nonNull).collect(Collectors.toList());
     }
-
-//    public List<Team> findAllSignedForTournament(Long tournamentId) {
-//        List<Match> allByTournamentId = matchRepository.findAllByTournamentId(tournamentId);
-//        Set<Team> participants = new HashSet<>();
-//        allByTournamentId.stream()
-//                .filter(match -> Objects.nonNull(match.getTeamAway()) && Objects.nonNull(match.getTeamHome()))
-//                .forEach(match -> {
-//                    participants.add(match.getTeamAway());
-//                    participants.add(match.getTeamHome());
-//                });
-//        return new ArrayList<>(participants);
-//    }
 }

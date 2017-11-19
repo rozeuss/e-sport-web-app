@@ -19,19 +19,24 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public boolean checkCredentials(Account account) {
+    public Account checkCredentials(Account account) {
         Optional<Account> accountByEmailAndPassword =
                 accountRepository.findAccountByEmailAndPassword(account.getEmail(), account.getPassword());
-        return accountByEmailAndPassword.isPresent();
+        return accountByEmailAndPassword.orElse(null);
     }
 
     @Override
     public Account create(Account account) {
         Optional<Account> accountByEmailId = accountRepository.findByEmail(account.getEmail());
-
         if (accountByEmailId.isPresent()) {
-            return new Account();
+            return null;
         }
+        // @TODO dorobic walidacje na email
         return accountRepository.save(account);
+    }
+
+    @Override
+    public Account findByEmail(String email) {
+        return accountRepository.findByEmail(email).orElse(null);
     }
 }

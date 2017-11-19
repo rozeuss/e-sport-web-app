@@ -12,8 +12,8 @@ public class MatchDto {
     private String startDate;
     private TeamDto teamAway;
     private TeamDto teamHome;
-    private long scoreAway;
-    private long scoreHome;
+    private Long scoreAway;
+    private Long scoreHome;
     private long tournamentId;
     private int phase;
 
@@ -28,5 +28,14 @@ public class MatchDto {
         this.scoreHome = scoreHome;
         this.tournamentId = tournamentId;
         this.phase = phase;
+    }
+
+    public MatchDto(Long scoreAway, Long scoreHome) {
+        this.scoreAway = scoreAway;
+        this.scoreHome = scoreHome;
+    }
+
+    public MatchDto(String startDate) {
+        this.startDate = startDate;
     }
 }

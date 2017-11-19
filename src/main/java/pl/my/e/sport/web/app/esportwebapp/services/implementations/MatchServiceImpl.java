@@ -84,6 +84,30 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
+    public Match update(Long id, Match match) {
+        Match foundMatch = findById(id);
+        if (foundMatch == null) {
+            return null;
+        }
+        if (match.getStartDate() != null) {
+            foundMatch.setStartDate(match.getStartDate());
+        }
+        if (match.getScoreAway() != null) {
+            foundMatch.setScoreAway(match.getScoreAway());
+        }
+        if (match.getScoreHome() != null) {
+            foundMatch.setScoreHome(match.getScoreHome());
+        }
+        matchRepository.save(foundMatch);
+        return foundMatch;
+    }
+
+    @Override
+    public List<Match> findAllByNextMatchId(Long nextMatchId) {
+        return matchRepository.findAllByNextMatchId(nextMatchId);
+    }
+
+    @Override
     public Match getPlayoff(Long tournamentId) {
         Tournament tournament = tournamentRepository.findOne(tournamentId);
         if (tournament == null) {

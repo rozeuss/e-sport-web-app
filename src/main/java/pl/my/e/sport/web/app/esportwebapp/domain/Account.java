@@ -18,7 +18,7 @@ public class Account {
     @SequenceGenerator(name = "public", sequenceName = "account_seq", allocationSize = 1)
     private long id;
 
-    @Email
+    @Email(message = "Please provide a valid email address")
     @NotNull
     @Column(unique = true)
     private String email;
@@ -37,4 +37,5 @@ public class Account {
         this.password = password;
         this.accountType = accountType;
     }
+
 }

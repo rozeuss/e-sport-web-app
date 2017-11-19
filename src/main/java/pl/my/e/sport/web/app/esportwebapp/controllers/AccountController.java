@@ -29,9 +29,14 @@ public class AccountController {
     }
 
     @GetMapping("/login")
-    public Boolean login(@RequestParam String email, @RequestParam String password) {
+    public AccountDto login(@RequestParam String email, @RequestParam String password) {
         AccountDto accountDto = new AccountDto(email, password);
-        return accountService.checkCredentials(accountMapper.fromDto(accountDto));
+        return accountMapper.toDto(accountService.checkCredentials(accountMapper.fromDto(accountDto)));
+    }
+
+    @GetMapping("/getByEmail")
+    public AccountDto getByEmail(@RequestParam String email) {
+        return accountMapper.toDto(accountService.findByEmail(email));
     }
 
 }

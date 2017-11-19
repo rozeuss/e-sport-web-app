@@ -23,4 +23,11 @@ public class AccountDto {
         this.email = email;
         this.password = password;
     }
+
+    public AccountDto(long id, String email, String password, int accountTypeId) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.accountTypeId = accountTypeId;
+    }
 }

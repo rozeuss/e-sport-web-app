@@ -15,6 +15,5 @@ public interface AccountMapper {
 
     @Mapping(target = "accountTypeId", source = "accountType.id")
     @Mapping(target = "password", ignore = true)
-    @Mapping(target = "id", ignore = true)
     AccountDto toDto(Account account);
 }
