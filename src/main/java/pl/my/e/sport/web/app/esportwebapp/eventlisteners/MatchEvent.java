@@ -8,7 +8,7 @@ public class MatchEvent extends ApplicationEvent {
 
     private final boolean isFinalised;
     private Match match;
-    
+
     public MatchEvent(Object source, Match match) {
         super(source);
         this.match = match;

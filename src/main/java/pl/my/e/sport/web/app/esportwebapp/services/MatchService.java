@@ -1,6 +1,7 @@
 package pl.my.e.sport.web.app.esportwebapp.services;
 
 import pl.my.e.sport.web.app.esportwebapp.domain.Match;
+import pl.my.e.sport.web.app.esportwebapp.domain.TeamStatisticsReport;
 
 import java.util.List;
 
@@ -19,5 +20,7 @@ public interface MatchService {
     Match update(Long id, Match match);
 
     List<Match> findAllByNextMatchId(Long nextMatchId);
+
+    TeamStatisticsReport getTeamStatistics(Long teamId);
 
 }

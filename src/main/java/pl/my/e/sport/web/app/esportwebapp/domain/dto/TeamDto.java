@@ -16,4 +16,10 @@ public class TeamDto {
         this.name = name;
         this.country = country;
     }
+
+    public TeamDto(String name, String country, long accountId) {
+        this.name = name;
+        this.country = country;
+        this.accountId = accountId;
+    }
 }

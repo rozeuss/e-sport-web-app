@@ -47,15 +47,36 @@ class TestDataProvider implements CommandLineRunner {
         generateTournaments();
         generateMatches();
         TournamentDto tournamentDto = new TournamentDto();
-        tournamentDto.setDescription("gutens majonze");
+        tournamentDto
+                .setDescription("Turniej CS:GO organizowany przez samorząd uczniowski WAT. Główny sponsor: POLBUDEX.");
         tournamentDto.setEndDate("2018-06-06");
         tournamentDto.setStartDate("2018-06-01");
-        tournamentDto.setLocation("KRAKOW POLSKA");
+        tournamentDto.setLocation("Polska, Radom");
         tournamentDto.setOrganizerId(1L);
-        tournamentDto.setPrize(new BigDecimal(5000.253));
-        tournamentDto.setTitle("TYTUL X");
+        tournamentDto.setPrize(new BigDecimal(5000));
+        tournamentDto.setTitle("WAT MASTERS 2018");
         TournamentDto tournamentDto1 = tournamentController.create(tournamentDto);
-        matchController.createMatches(tournamentDto1.getId(), 8, true);
+        matchController.createMatches(tournamentDto1.getId(), 8, false);
+        tournamentController.signUpForTournament(tournamentDto1.getId(), 1L);
+        tournamentController.signUpForTournament(tournamentDto1.getId(), 2L);
+        tournamentController.signUpForTournament(tournamentDto1.getId(), 3L);
+        tournamentController.signUpForTournament(tournamentDto1.getId(), 4L);
+        tournamentController.signUpForTournament(tournamentDto1.getId(), 5L);
+        tournamentController.signUpForTournament(tournamentDto1.getId(), 6L);
+        tournamentController.signUpForTournament(tournamentDto1.getId(), 7L);
+        tournamentController.signUpForTournament(tournamentDto1.getId(), 8L);
+
+        TournamentDto tournamentDto2 = new TournamentDto();
+        tournamentDto2.setDescription("Turniej CS:GO.");
+        tournamentDto2.setEndDate("2018-06-06");
+        tournamentDto2.setStartDate("2018-06-01");
+        tournamentDto2.setLocation("Polska, Warszawa");
+        tournamentDto2.setOrganizerId(1L);
+        tournamentDto2.setPrize(new BigDecimal(10000));
+        tournamentDto2.setTitle("CSGO CUP 2018");
+        TournamentDto tournamentDto3 = tournamentController.create(tournamentDto2);
+        matchController.createMatches(tournamentDto3.getId(), 4, true);
+
 
     }
 
@@ -65,16 +86,20 @@ class TestDataProvider implements CommandLineRunner {
     }
 
     private void generatePlayers() {
-        playerRepository.save(generatePlayer("player", "Dam",
-                "Red", teamRepository.findOne(1L), null));
-        playerRepository.save(generatePlayer("slayer", "Dam1",
-                "Red1", teamRepository.findOne(1L), null));
-        playerRepository.save(generatePlayer("ultraDzik", "Dam12",
-                "Red12", teamRepository.findOne(1L), null));
-        playerRepository.save(generatePlayer("knur2000", "Dam123",
-                "Red123", teamRepository.findOne(2L), null));
-        playerRepository.save(generatePlayer("miszcz_pl", "Dam1234",
-                "Red1234", teamRepository.findOne(2L), null));
+        playerRepository.save(generatePlayer("player", "Lorem",
+                "Ipsum", teamRepository.findOne(1L), null));
+        playerRepository.save(generatePlayer("slayer", "Lorem",
+                "Ipsum", teamRepository.findOne(1L), null));
+        playerRepository.save(generatePlayer("ultraDzik", "Lorem",
+                "Ipsum", teamRepository.findOne(1L), null));
+        playerRepository.save(generatePlayer("ma100dont", "Lorem",
+                "Ipsum", teamRepository.findOne(1L), null));
+        playerRepository.save(generatePlayer("knur2000PL", "Lorem",
+                "Ipsum", teamRepository.findOne(1L), null));
+        playerRepository.save(generatePlayer("x.robak", "Lorem",
+                "Ipsum", teamRepository.findOne(2L), null));
+        playerRepository.save(generatePlayer("omewa shindeiru", "Lorem",
+                "Ipsum", teamRepository.findOne(2L), null));
     }
 
     private Team generateTeam(String name, String country, Account account) {
@@ -82,10 +107,14 @@ class TestDataProvider implements CommandLineRunner {
     }
 
     private void generateTeams() {
-        teamRepository.save(generateTeam("ONE", "Poland", accountRepository.findOne(1L)));
-        teamRepository.save(generateTeam("TWO", "Poland", accountRepository.findOne(2L)));
-        teamRepository.save(generateTeam("THREE", "England", accountRepository.findOne(3L)));
-        teamRepository.save(generateTeam("FOUR", "England", accountRepository.findOne(4L)));
+        teamRepository.save(generateTeam("GRACZE", "Poland", accountRepository.findOne(1L)));
+        teamRepository.save(generateTeam("PLAYERS", "England", accountRepository.findOne(2L)));
+        teamRepository.save(generateTeam("SPIELER", "Germany", accountRepository.findOne(3L)));
+        teamRepository.save(generateTeam("SPELARE", "Sweden", accountRepository.findOne(4L)));
+        teamRepository.save(generateTeam("CZIUJEN", "China", accountRepository.findOne(5L)));
+        teamRepository.save(generateTeam("JOGADORES", "Brazil", accountRepository.findOne(6L)));
+        teamRepository.save(generateTeam("IGROKI", "Russia", accountRepository.findOne(7L)));
+        teamRepository.save(generateTeam("TRUEPLAYERS", "USA", accountRepository.findOne(8L)));
     }
 
     private Tournament generateTournament(String title, String description, String location,
@@ -95,14 +124,6 @@ class TestDataProvider implements CommandLineRunner {
     }
 
     private void generateTournaments() {
-        tournamentRepository.save(generateTournament("IEM KATOWICE",
-                "Super festiwal.\n Nagroda 500zł", "Poland, Katowice",
-                LocalDate.of(2017, 11, 1), LocalDate.of(2017, 11, 14),
-                new BigDecimal(5000.253)));
-        tournamentRepository.save(generateTournament("RADOM JADOM",
-                "Super festiwal.\n Nagroda 5zł", "Poland, Radom",
-                LocalDate.of(2017, 12, 1), LocalDate.of(2017, 12, 5),
-                new BigDecimal(400)));
     }
 
     private Match generateMatch(Match nextMatch, LocalDate startDate, Team teamAway, Team teamHome, Long scoreAway,
@@ -111,18 +132,7 @@ class TestDataProvider implements CommandLineRunner {
     }
 
     private void generateMatches() {
-        matchRepository.save(generateMatch(null, LocalDate.of(2017, 11, 1),
-                teamRepository.findOne(1L), teamRepository.findOne(2L), 2L, 1L,
-                tournamentRepository.findOne(1L), 0));
-        matchRepository.save(generateMatch(null, LocalDate.of(2017, 11, 5),
-                teamRepository.findOne(2L), teamRepository.findOne(1L), 0L, 3L,
-                tournamentRepository.findOne(1L), 0));
-        matchRepository.save(generateMatch(null, LocalDate.of(2017, 11, 5),
-                null, null, null, null,
-                tournamentRepository.findOne(1L),0));
-        matchRepository.save(generateMatch(null, LocalDate.of(2017, 11, 5),
-                null, null, null, null,
-                tournamentRepository.findOne(1L),0));
+
     }
 
     private void generateAccountTypes() {
@@ -135,10 +145,13 @@ class TestDataProvider implements CommandLineRunner {
     }
 
     private void generateAccounts() {
-        accountRepository.save(generateAccount("abc@abc.pl", "pass", accountTypeRepository.findOne(1L)));
-        accountRepository.save(generateAccount("qaz@qaz.pl", "pass", accountTypeRepository.findOne(1L)));
-        accountRepository.save(generateAccount("qwe@qwe.pl", "pass", accountTypeRepository.findOne(1L)));
-        accountRepository.save(generateAccount("qsc@qsc.pl", "pass", accountTypeRepository.findOne(1L)));
-        accountRepository.save(generateAccount("test@test.pl", "pass", accountTypeRepository.findOne(1L)));
+        accountRepository.save(generateAccount("abc@abc.pl", "test", accountTypeRepository.findOne(1L)));
+        accountRepository.save(generateAccount("qaz@qaz.pl", "test", accountTypeRepository.findOne(1L)));
+        accountRepository.save(generateAccount("qwe@qwe.pl", "test", accountTypeRepository.findOne(1L)));
+        accountRepository.save(generateAccount("qsc@qsc.pl", "test", accountTypeRepository.findOne(1L)));
+        accountRepository.save(generateAccount("1@qsc.pl", "test", accountTypeRepository.findOne(1L)));
+        accountRepository.save(generateAccount("2@qsc.pl", "test", accountTypeRepository.findOne(1L)));
+        accountRepository.save(generateAccount("3@qsc.pl", "test", accountTypeRepository.findOne(1L)));
+        accountRepository.save(generateAccount("4@qsc.pl", "test", accountTypeRepository.findOne(1L)));
     }
 }

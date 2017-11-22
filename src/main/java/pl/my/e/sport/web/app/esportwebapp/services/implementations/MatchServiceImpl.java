@@ -3,6 +3,8 @@ package pl.my.e.sport.web.app.esportwebapp.services.implementations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.my.e.sport.web.app.esportwebapp.domain.Match;
+import pl.my.e.sport.web.app.esportwebapp.domain.Team;
+import pl.my.e.sport.web.app.esportwebapp.domain.TeamStatisticsReport;
 import pl.my.e.sport.web.app.esportwebapp.domain.Tournament;
 import pl.my.e.sport.web.app.esportwebapp.repositories.MatchRepository;
 import pl.my.e.sport.web.app.esportwebapp.repositories.TeamRepository;
@@ -15,8 +17,10 @@ import java.util.stream.IntStream;
 @Service
 public class MatchServiceImpl implements MatchService {
 
-    private static final int PLAYOFF_PHASE = 0;
+//    private static final int PLAYOFF_PHASE = 0;
     private static final int[] participants = {4, 8, 16, 32};
+    private static final int FINAL_PHASE = 1;
+    private static final int PLAYOFF_PHASE = 0;
     private MatchRepository matchRepository;
     private TeamRepository teamRepository;
     private TournamentRepository tournamentRepository;
@@ -129,5 +133,38 @@ public class MatchServiceImpl implements MatchService {
             phases.put(0, 1);
         }
         return phases;
+    }
+
+
+    @Override
+    public TeamStatisticsReport getTeamStatistics(Long teamId) {
+        Team team = teamRepository.findOne(teamId);
+        List<Match> teamMatches = matchRepository.findAllByTeamId(team);
+        Integer numberOfPlayedMatches = teamMatches.size();
+        Integer numberOfWonMatches = countMatches(team, teamMatches);
+        Integer numberOfLostMatches = numberOfPlayedMatches - numberOfWonMatches;
+        List<Match> finalMatches = matchRepository.findAllByTeamIdAndPhase(team, FINAL_PHASE);
+        Integer numberOfFirstPlaces = countMatches(team, finalMatches);
+        Integer numberOfSecondPlaces = finalMatches.size() - numberOfFirstPlaces;
+        List<Match> playoffMatches = matchRepository.findAllByTeamIdAndPhase(team, PLAYOFF_PHASE);
+        Integer numberOfThirdPlaces = countMatches(team, playoffMatches);
+        return new TeamStatisticsReport(numberOfPlayedMatches, numberOfWonMatches, numberOfLostMatches,
+                numberOfFirstPlaces, numberOfSecondPlaces, numberOfThirdPlaces);
+    }
+
+    private Integer countMatches(Team team, List<Match> finalMatches) {
+        Integer counter = 0;
+        for (Match match : finalMatches) {
+            if (match.getTeamHome().equals(team)) {
+                if (match.getScoreHome() > match.getScoreAway()) {
+                    counter++;
+                }
+            } else if (match.getTeamAway().equals(team)) {
+                if (match.getScoreHome() < match.getScoreAway()) {
+                    counter++;
+                }
+            }
+        }
+        return counter;
     }
 }
