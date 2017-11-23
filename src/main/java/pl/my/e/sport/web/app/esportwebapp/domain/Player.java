@@ -22,7 +22,7 @@ public class Player {
     private String lastName;
     @ManyToOne
     private Team team;
-    //  @NotNull TODO odkomentowac
+    //  @NotNull TODO
     @OneToOne
     private Statistics statistics;
 

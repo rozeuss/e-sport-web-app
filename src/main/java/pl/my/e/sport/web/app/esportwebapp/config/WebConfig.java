@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-//TODO: ponizsza adnotacja uniemożliwia działanie swaggera ale addResourceHandlers to naprawia
+//swagger nie dziala bez addResourceHandlers
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter {
 

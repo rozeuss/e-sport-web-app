@@ -17,7 +17,6 @@ import java.util.stream.IntStream;
 @Service
 public class MatchServiceImpl implements MatchService {
 
-//    private static final int PLAYOFF_PHASE = 0;
     private static final int[] participants = {4, 8, 16, 32};
     private static final int FINAL_PHASE = 1;
     private static final int PLAYOFF_PHASE = 0;

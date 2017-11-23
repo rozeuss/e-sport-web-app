@@ -31,7 +31,6 @@ public class AccountServiceImpl implements AccountService {
         if (accountByEmailId.isPresent()) {
             return null;
         }
-        // @TODO dorobic walidacje na email
         return accountRepository.save(account);
     }
 

@@ -49,7 +49,7 @@ public class TeamServiceImpl implements TeamService {
     public Team findByName(String name) {
         Optional<Team> teamByName = teamRepository.findByName(name);
         if (!teamByName.isPresent()) {
-            return new Team(); //zwraca pusty obiekt z id = 0, reszta null
+            return null;
         }
         return teamByName.get();
     }
@@ -59,7 +59,7 @@ public class TeamServiceImpl implements TeamService {
     public Team findByAccountId(Long id) {
         Optional<Team> teamByAccountId = teamRepository.findByAccount_Id(id);
         if (!teamByAccountId.isPresent()) {
-            return null; //zwraca no content, ktore podejscie lepsze nie wiem @TODO RACZEJ NULL LEPSZY HTTP.NORESPONSE
+            return null;
         }
         return teamByAccountId.get();
     }

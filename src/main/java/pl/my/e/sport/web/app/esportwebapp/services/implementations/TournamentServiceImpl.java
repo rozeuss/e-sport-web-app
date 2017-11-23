@@ -52,8 +52,7 @@ public class TournamentServiceImpl implements TournamentService {
         if (!tournament.getEndDate().isAfter(tournament.getStartDate())) {
             return null;
         } else {
-            //TODO ponizsze w celach testowych, pozniej pobierane z tokena
-            Account one = accountRepository.findOne(1L);
+            Account one = accountRepository.findOne(tournament.getOrganizer().getId());
             tournament.setOrganizer(one);
             return tournamentRepository.save(tournament);
         }
@@ -66,10 +65,9 @@ public class TournamentServiceImpl implements TournamentService {
 
     @Override
     public Boolean signUpForTournament(Long tournamentId, Long teamId) {
-//        if (isTeamAlreadySignedForTournament(tournamentId, teamId)) {
-//            return Boolean.FALSE;
-//        }
-// @TODO ODKOMENTOWAC JAK GOTOWE
+        if (isTeamAlreadySignedForTournament(tournamentId, teamId)) {
+            return Boolean.FALSE;
+        }
         Optional<Tournament> tournament = Optional.ofNullable(tournamentRepository.findOne(tournamentId));
         Optional<Team> team = Optional.ofNullable(teamRepository.findOne(teamId));
         if (tournament.isPresent() && team.isPresent()) {

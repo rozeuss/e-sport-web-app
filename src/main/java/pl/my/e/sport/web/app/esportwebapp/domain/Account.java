@@ -29,7 +29,6 @@ public class Account {
     @NotNull
     @ManyToOne
     private AccountType accountType;
-//            = new HashSet<AccountType>(0);
 
 
     public Account(String email, String password, AccountType accountType) {

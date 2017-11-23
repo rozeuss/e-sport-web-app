@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class TournamentDto {
 
-    // adnotacja uniemozliwia updatowanie po podaniu ID przy create
+    // uniemozliwia updatowanie po podaniu ID przy create
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private long id;
     private String title;
