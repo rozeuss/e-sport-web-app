@@ -40,7 +40,7 @@ public class TeamServiceImpl implements TeamService {
         Optional<Team> teamByName = teamRepository.findByName(team.getName());
         Optional<Team> teamByAccountId = teamRepository.findByAccount_Id(team.getAccount().getId());
         if (teamByName.isPresent() || teamByAccountId.isPresent()) {
-            return new Team();
+            return null;
         }
         return teamRepository.save(team);
     }
@@ -48,20 +48,14 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public Team findByName(String name) {
         Optional<Team> teamByName = teamRepository.findByName(name);
-        if (!teamByName.isPresent()) {
-            return null;
-        }
-        return teamByName.get();
+        return teamByName.orElse(null);
     }
 
 
     @Override
     public Team findByAccountId(Long id) {
         Optional<Team> teamByAccountId = teamRepository.findByAccount_Id(id);
-        if (!teamByAccountId.isPresent()) {
-            return null;
-        }
-        return teamByAccountId.get();
+        return teamByAccountId.orElse(null);
     }
 
     @Override

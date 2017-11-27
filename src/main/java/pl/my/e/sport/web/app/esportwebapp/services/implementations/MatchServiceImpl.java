@@ -17,7 +17,7 @@ import java.util.stream.IntStream;
 @Service
 public class MatchServiceImpl implements MatchService {
 
-    private static final int[] participants = {4, 8, 16, 32};
+    private static final int[] PARTICIPANTS = {4, 8, 16, 32};
     private static final int FINAL_PHASE = 1;
     private static final int PLAYOFF_PHASE = 0;
     private MatchRepository matchRepository;
@@ -48,7 +48,7 @@ public class MatchServiceImpl implements MatchService {
         }
 
         boolean isProperNumberOfParticipants =
-                IntStream.of(participants).anyMatch(value -> value == numberOfParticipants);
+                IntStream.of(PARTICIPANTS).anyMatch(value -> value == numberOfParticipants);
         if (!isProperNumberOfParticipants) {
             return null;
         }
@@ -120,6 +120,25 @@ public class MatchServiceImpl implements MatchService {
         return playoff.orElse(null);
     }
 
+    @Override
+    public TeamStatisticsReport getTeamStatistics(Long teamId) {
+        Team team = teamRepository.findOne(teamId);
+        if (team == null) {
+            return null;
+        }
+        List<Match> teamMatches = matchRepository.findAllByTeamId(team);
+        Integer numberOfPlayedMatches = teamMatches.size();
+        Integer numberOfWonMatches = countMatches(team, teamMatches);
+        Integer numberOfLostMatches = numberOfPlayedMatches - numberOfWonMatches;
+        List<Match> finalMatches = matchRepository.findAllByTeamIdAndPhase(team, FINAL_PHASE);
+        Integer numberOfFirstPlaces = countMatches(team, finalMatches);
+        Integer numberOfSecondPlaces = finalMatches.size() - numberOfFirstPlaces;
+        List<Match> playoffMatches = matchRepository.findAllByTeamIdAndPhase(team, PLAYOFF_PHASE);
+        Integer numberOfThirdPlaces = countMatches(team, playoffMatches);
+        return new TeamStatisticsReport(numberOfPlayedMatches, numberOfWonMatches, numberOfLostMatches,
+                numberOfFirstPlaces, numberOfSecondPlaces, numberOfThirdPlaces);
+    }
+
     private Map<Integer, Integer> preparePhasesForTournament(Integer numberOfParticipants, Boolean hasPlayoff) {
         TreeMap<Integer, Integer> phases = new TreeMap<>();
         int phase = (int) (Math.log(numberOfParticipants) / Math.log(2));
@@ -132,23 +151,6 @@ public class MatchServiceImpl implements MatchService {
             phases.put(0, 1);
         }
         return phases;
-    }
-
-
-    @Override
-    public TeamStatisticsReport getTeamStatistics(Long teamId) {
-        Team team = teamRepository.findOne(teamId);
-        List<Match> teamMatches = matchRepository.findAllByTeamId(team);
-        Integer numberOfPlayedMatches = teamMatches.size();
-        Integer numberOfWonMatches = countMatches(team, teamMatches);
-        Integer numberOfLostMatches = numberOfPlayedMatches - numberOfWonMatches;
-        List<Match> finalMatches = matchRepository.findAllByTeamIdAndPhase(team, FINAL_PHASE);
-        Integer numberOfFirstPlaces = countMatches(team, finalMatches);
-        Integer numberOfSecondPlaces = finalMatches.size() - numberOfFirstPlaces;
-        List<Match> playoffMatches = matchRepository.findAllByTeamIdAndPhase(team, PLAYOFF_PHASE);
-        Integer numberOfThirdPlaces = countMatches(team, playoffMatches);
-        return new TeamStatisticsReport(numberOfPlayedMatches, numberOfWonMatches, numberOfLostMatches,
-                numberOfFirstPlaces, numberOfSecondPlaces, numberOfThirdPlaces);
     }
 
     private Integer countMatches(Team team, List<Match> finalMatches) {

@@ -55,7 +55,6 @@ public class PlayerServiceImpl implements PlayerService {
         if (numberOfPlayersInTeam == MAX_PLAYERS_IN_TEAM) {
             return null;
         }
-
         return playerRepository.save(player);
     }
 }
