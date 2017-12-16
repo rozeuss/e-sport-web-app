@@ -64,8 +64,6 @@ public class MatchController {
     public MatchDto updateDate(@PathVariable("id") Long id, @RequestParam("date") String date) {
         MatchDto result =
                 matchMapper.toDto(matchService.update(id, matchMapper.fromDto(new MatchDto(date))));
-//        MatchEvent matchEvent = new MatchEvent(this, matchMapper.fromDto(result));
-//        applicationEventPublisher.publishEvent(matchEvent);
         return result;
     }
 
